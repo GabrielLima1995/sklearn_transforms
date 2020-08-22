@@ -41,7 +41,7 @@ class RFE_obj(BaseEstimator, TransformerMixin):
     def fit(self, X, y=None):
         return self
     
-    def transform(self, X):
+    def transform(self, X,y):
         
         r = RFE(self.model, step=1).fit(X,y)
         cols = r.get_support(indices=True)
