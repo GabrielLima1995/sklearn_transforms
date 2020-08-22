@@ -16,19 +16,19 @@ class DropColumns(BaseEstimator, TransformerMixin):
         return data.drop(labels=self.columns, axis='columns')
 
 class Create_Features(BaseEstimator, TransformerMixin):
-    def __init__(self, columns):
-        self.columns = columns
-
+    def __init__(self):
+        return None
+    
     def fit(self, X, y=None):
         return self
     
     def transform(self, X):
         
-        nota_humanas = {'HUMANAS':X[['NOTA_GO','NOTA_EM','NOTA_DE']].median(axis = 1)}
+        nota_humanas = {'HUMANAS':X.iloc[:,[6,7,9]].median(axis = 1)}
         nh = pd.DataFrame(data = nota_humanas)
-        nota_global = {'GLOBAL':X[['NOTA_GO','NOTA_EM','NOTA_DE','NOTA_MF']].median(axis=1)}
+        nota_global = {'GLOBAL':X.iloc[:,[6,7,8,9]].median(axis=1)}
         ng = pd.DataFrame(data = nota_global)
-        reprovacao = {'REP_COUNT' : df_data_3[['REPROVACOES_GO','REPROVACOES_MF','REPROVACOES_EM','REPROVACOES_DE']].median(axis =1)}
+        reprovacao = {'REP_COUNT' : X.iloc[:,[2,3,4,5]].median(axis =1)}
         rep = pd.DataFrame(data=reprovacao)
         df_data_4 = pd.concat([X,nh,ng,rep],axis = 1)
 
