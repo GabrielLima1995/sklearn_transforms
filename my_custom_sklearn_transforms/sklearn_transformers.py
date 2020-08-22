@@ -24,14 +24,14 @@ class Create_Features(BaseEstimator, TransformerMixin):
     def fit(self, X, y=None):
         return self
     
-    def transform(self, X):
+    def transform(self, X,y):
         
         nota_humanas = np.median(X[:,[6,7,9]],axis = 1).reshape(-1,1)
         nota_global =  np.median(X[:,[6,7,8,9]],axis=1).reshape(-1,1)
         reprovacao =   np.median(X[:,[2,3,4,5]],axis =1).reshape(-1,1)
         new_x = np.concatenate((X,nota_humanas,nota_global,reprovacao),axis=1)
 
-        return new_x
+        return new_x,y
 
 class RFE_obj(BaseEstimator, TransformerMixin):
     
